@@ -36,7 +36,7 @@ fn get_digit(input: &str, rev: bool) -> char {
     };
 
     for (i, ch) in &chars_idx {
-        if ('0'..='9').contains(ch) {
+        if is_digit(ch) {
             return *ch;
         }
 
