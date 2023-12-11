@@ -30,26 +30,29 @@ fn part_one(input: &Vec<String>) -> u32 {
 }
 
 fn get_digit(input: &String, rev: bool) -> char {
-    let input: String = if rev {
-        input.chars().rev().collect()
-    } else {
-        input.to_string()
+    let input: String = input.to_string();
+    let mut chars_idx: Vec<_> = input.chars().enumerate().collect();
+    if rev {
+        chars_idx.reverse()
     };
 
-    let mut slice = input.as_str();
-
-    loop {
-        if ('0'..'9').contains(&slice.chars().nth(0).unwrap()) {
-            return slice.chars().nth(0).unwrap();
+    for (i, ch) in &chars_idx {
+        if ('0'..='9').contains(ch) {
+            return *ch;
         }
+
+        let slice = &input[*i..];
         for (key, digit) in DIGIT_MAP.entries() {
-            let rev_key = key.chars().rev().collect::<String>();
-            if slice.starts_with(if !rev { key } else { rev_key.as_str() }) {
+            if slice.starts_with(key) {
                 return *digit;
             }
         }
-        slice = &slice[1..];
     }
+
+    panic!(
+        "Didn't find any digits in input {}, reversed: {}",
+        input, rev
+    );
 }
 
 fn part_two(input: &Vec<String>) -> u32 {
