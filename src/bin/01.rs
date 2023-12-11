@@ -29,8 +29,7 @@ fn part_one(input: &Vec<String>) -> u32 {
         .sum()
 }
 
-fn get_digit(input: &String, rev: bool) -> char {
-    let input: String = input.to_string();
+fn get_digit(input: &str, rev: bool) -> char {
     let mut chars_idx: Vec<_> = input.chars().enumerate().collect();
     if rev {
         chars_idx.reverse()
